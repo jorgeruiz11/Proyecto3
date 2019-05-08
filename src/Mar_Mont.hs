@@ -1,4 +1,4 @@
-module AlgMM where
+module Mar_Mont where
 
 import Syntax
 import Data.List
