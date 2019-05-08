@@ -70,7 +70,7 @@ unifica s t = unificaConj [s,t]
 
 
 -- Unifica solamente las literales
-unificaLit:: Form -> Form -> Subst
+unificaLit:: Lit -> Lit -> Subst     -- Aqui teniamos Form -> Form
 unificaLit phi psi = case (phi,psi) of
   (TrueF, TrueF) -> []
   (FalseF, FalseF) -> []
@@ -83,11 +83,11 @@ unificaLit phi psi = case (phi,psi) of
 
 ------------------------ Añadimos los nuevos métodos ---------------------------
 mmE :: [Lit] -> Subst
-mmE [TTrue] = error "Falta implementar"
+mmE [TrueF] = error "Falta implementar"
 
 
 sust_G :: [Lit] -> Subst -> [Lit]
-sust_G [TTrue] sust = error "Falta implementar"
+sust_G [TrueF] sust = error "Falta implementar"
 
 apsubL :: Lit -> Subst -> Lit
-apsubL TTrue sust = error "Falta implementar"
+apsubL TrueF sust = error "Falta implementar"
