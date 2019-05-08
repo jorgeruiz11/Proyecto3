@@ -90,4 +90,8 @@ sust_G :: [Lit] -> Subst -> [Lit]
 sust_G [TrueF] sust = error "Falta implementar"
 
 apsubL :: Lit -> Subst -> Lit
-apsubL TrueF sust = error "Falta implementar"
+apsubL lit sus = case lit of
+  TrueF -> TrueF
+  FalseF -> FalseF
+  Pr p lt -> Pr p [apsubT t sus | t <- lt]
+  Eq t1 t2 -> Eq (apsubT t1 sus) (apsubT t2 sus)

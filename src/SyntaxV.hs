@@ -26,16 +26,6 @@ data Form = TrueF
             | Ex Ind Form
 
 
------------------------ SE ACABA DE AÑADIR -------------------------------------
-{- Tipo de dato que representa las literales, las cuales pueden ser: T, F, un
-   un Predicado o una igualdad de términos.
--}
-data Lit = TTrue
-          | FFalse
-          | Pred Nombre [Term]
-          | Equ Term Term deriving (Show, Eq)
-
-
 -- Función que te dice las variables libres de una formula. Checa caso a caso.
 -- Las variables libres de una formula son todas aquellas que no estan cuantificadas.
 fv :: Form -> [Ind]
