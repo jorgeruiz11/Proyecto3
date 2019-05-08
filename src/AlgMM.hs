@@ -57,7 +57,7 @@ unificaC_aux pares = case pares of
                lps = [(apsubT t1 d, apsubT t2 d) | (t1, t2) <- lp ]
 
     (F f lt, V x) -> unificaC_aux ((t2, t1):lp)          -- [SWAP]
-    
+
 
 -- Unifica una lista de términos
 unificaConj:: [Term] -> Subst
@@ -79,3 +79,15 @@ unificaLit phi psi = case (phi,psi) of
                           else error "Imposible unificar"
   (Eq t1 s1, Eq t2 s2) -> unificaC_aux [(t1, t2), (s1, s2)]
   _ -> error "Imposible unificar"
+
+
+------------------------ Añadimos los nuevos métodos ---------------------------
+mmE :: [Lit] -> Subst
+mmE [TTrue] = error "Falta implementar"
+
+
+sust_G :: [Lit] -> Subst -> [Lit]
+sust_G [TTrue] sust = error "Falta implementar"
+
+apsubL :: Lit -> Subst -> Lit
+apsubL TTrue sust = error "Falta implementar"

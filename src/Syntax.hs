@@ -25,6 +25,17 @@ data Form = TrueF
             | All Ind Form
             | Ex Ind Form
 
+
+----------------------- SE ACABA DE AÑADIR -------------------------------------
+{- Tipo de dato que representa las literales, las cuales pueden ser: T, F, un
+   un Predicado o una igualdad de términos.
+-}
+data Lit = TTrue
+          | FFalse
+          | Pred Nombre [Term]
+          | Equ Term Term deriving (Show, Eq)
+
+
 -- Función que te dice las variables libres de una formula. Checa caso a caso.
 -- Las variables libres de una formula son todas aquellas que no estan cuantificadas.
 fv :: Form -> [Ind]
@@ -110,6 +121,7 @@ apsubT t sus = case t of
                  else apsubT (V x) xs
   F f lt -> F f [apsubT t sus | t <- lt] -- Para las cctes. va a darnos vacío. lt es la lista de términos
 
+
 -- Sustitución de Formulas.
 apsubF :: Form -> Subst -> Form
 apsubF phi sus = case phi of
@@ -134,6 +146,7 @@ apsubF phi sus = case phi of
     where lv = union xs ts -- xs es la primer entrada ej: z:= y ts es el del lado derecho :=asd
           (xs, tt) = unzip sus
           ts = concat [varT t | t <- tt] -- concat (map varT tt)
+
 
 -- Verifica si hay elementos repetidos en una lista de elementos comparables.
 tieneRep :: (Eq a) => [a] -> Bool
