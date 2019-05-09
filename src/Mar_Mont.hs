@@ -105,7 +105,13 @@ mmE (x:y:xs) = (unificaLit x y) ++ mmE (y:xs)  -- Toma los primeros 2 elementos 
    que aplica la sustitución a las literales
 -}
 sust_G :: [Lit] -> Subst -> [Lit]
-sust_G [li] sust = [apsubL li sust]
+sust_G (x:xs) sus = (apsubL x sus): (sust_G xs sus) -- Tomamos la primer literal y aplicamos la sustitución, después
+                                                    -- le concantenamos sus_G con el resto, es decir, cuando llamemos
+                                                    -- esta parte lo que tendremos será un nuevo valo en x y si |xs| era n ahora será n-1
+                                                    -- y asi recursivamente.
+
+-- Idea anterior:
+--sust_G [li] sust = [apsubL li sust]
 
 
 -- Aplica una sustitución a una literal
