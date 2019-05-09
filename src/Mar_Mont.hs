@@ -84,10 +84,7 @@ unificaLit phi psi = case (phi,psi) of
 
 ------------------------ Añadimos los nuevos métodos ---------------------------
 -- Devuelve el umg de un conjunto de literales.
-{- Lo que hacemos es que recibimos una lista de literales, entonces podemos ver
-   en particular dos elementos de esa lista y utilizar unificaLit sobre esos dos,
-   entonces cuando entre la llamada de nuevo phi = psi (se recorre) y psi = psi'.
--}
+-- Recibe una lista de literales y nos devuelve una sustitución.
 mmE :: [Lit] -> Subst
 mmE [] = []
 mmE [x] = [] -- Hacemos esto porque en caso de ser solo uno, no podemos hacer nada, ya que
