@@ -89,8 +89,15 @@ unificaLit phi psi = case (phi,psi) of
    entonces cuando entre la llamada de nuevo phi = psi (se recorre) y psi = psi'.
 -}
 mmE :: [Lit] -> Subst
-mmE lit = case lit of
-  [phi, psi] -> unificaLit phi psi
+mmE [] = []
+mmE [x] = []
+mmE (x:y:xs) = (unificaLit x y) ++ mmE (y:xs)
+
+-- Idea anterior:
+--mmE li = mmE lit = case lit of
+  --[phi, psi] -> unificaLit phi psi
+
+
 
 -- Función que aplica la sustitución a cada elemento del conjunto.
 {- Recibimos una lista de literales y una sustitución, entonces usamos la función
@@ -99,8 +106,6 @@ mmE lit = case lit of
 sust_G :: [Lit] -> Subst -> [Lit]
 sust_G [li] sust = [apsubL li sust]
 
---Idea 2: sust_G lit sus = case lit of
---                [l] -> [apsubL l sust]
 
 -- Aplica una sustitución a una literal
 {- Tomamos una literal y dependiendo del tipo que sea le aplicamos una sustitución
