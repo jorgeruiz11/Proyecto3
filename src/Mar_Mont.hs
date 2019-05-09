@@ -91,16 +91,16 @@ unificaLit phi psi = case (phi,psi) of
 mmE :: [Lit] -> Subst
 mmE [] = []
 mmE [x] = [] -- Hacemos esto porque en caso de ser solo uno, no podemos hacer nada, ya que
-             -- nuestra unificacion de terminos solo esta definida por pares, ademas
-             -- toma los primeros 2 elementos y los unifica y luego toma el seun con el tercero y
-             -- asi sucesivamente, luego llega al n-1 y lo unifica con el n y cuando llega al
-             -- n-ésimo como ya no tiene ningun otro mas adelante regresa la vacia (con ese elem.) y se queda con el anterior
-mmE (x:y:xs) = (unificaLit x y) ++ mmE (y:xs)
+             -- nuestra unificacion de terminos solo esta definida por pares.
+mmE (x:y:xs) = (unificaLit x y) ++ mmE (y:xs)  -- Toma los primeros 2 elementos y los unifica y luego toma el segundo con el tercero y
+                                               -- asi sucesivamente, luego llega al n-1 y lo unifica con el n y cuando llega al
+                                               -- n-ésimo como ya no tiene ningun otro mas adelante regresa la vacia (con ese elem.)
+                                               -- y se queda con el anterior (la ultima que hizo).
 
 -- Idea anterior:
 --mmE li = mmE lit = case lit of
   --[phi, psi] -> unificaLit phi psi
-
+-- La dejo solo para recordar como fue mi idea principal.
 
 
 -- Función que aplica la sustitución a cada elemento del conjunto.
