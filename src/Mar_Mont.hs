@@ -70,29 +70,42 @@ unifica s t = unificaConj [s,t]
 
 
 -- Unifica solamente las literales
-unificaLit:: Lit -> Lit -> Subst     -- Aqui teniamos Form -> Form
+unificaLit:: Lit -> Lit -> Subst
 unificaLit phi psi = case (phi,psi) of
   (TrueF, TrueF) -> []
   (FalseF, FalseF) -> []
   (Pr p lt1, Pr q lt2) -> if p == q && length lt1 == length lt2
-                          then unificaC_aux (zip lt1 lt2)
-                          else error "Imposible unificar"
+                          then unificaC_aux (zip lt1 lt2)    -- Igualamos entre cada "termino" del predicado.
+                          else error "Imposible unificar"   -- Falla cuando P != Q
   (Eq t1 s1, Eq t2 s2) -> unificaC_aux [(t1, t2), (s1, s2)]
-  _ -> error "Imposible unificar"
+  _ -> error "Imposible unificar"  -- Las literales son solo las definidas arriba por lo que otra
+                                   -- cosa no es admitido
 
 
 ------------------------ Añadimos los nuevos métodos ---------------------------
+-- Devuelve el umg de un conjunto de literales.
+{- Lo que hacemos es que recibimos una lista de literales, entonces podemos ver
+   en particular dos elementos de esa lista y utilizar unificaLit sobre esos dos,
+   entonces cuando entre la llamada de nuevo phi = psi (se recorre) y psi = psi'.
+-}
 mmE :: [Lit] -> Subst
-mmE s = error "Falta"
-  --concat [unificaLit l1 l2 | l1, l2 <- s]
-  --case [li] of
-  --[t1, t2] -> unificaLit t1 t2
---  concat [unificaLit r t | r,t <- s] where s = [li]
+mmE lit = case lit of
+  [phi, psi] -> unificaLit phi psi
 
+-- Función que aplica la sustitución a cada elemento del conjunto.
+{- Recibimos una lista de literales y una sustitución, entonces usamos la función
+   que aplica la sustitución a las literales
+-}
 sust_G :: [Lit] -> Subst -> [Lit]
 sust_G [li] sust = [apsubL li sust]
 
+--Idea 2: sust_G lit sus = case lit of
+--                [l] -> [apsubL l sust]
 
+-- Aplica una sustitución a una literal
+{- Tomamos una literal y dependiendo del tipo que sea le aplicamos una sustitución
+   a cada termino de esa literal.
+-}
 apsubL :: Lit -> Subst -> Lit
 apsubL lit sus = case lit of
   TrueF -> TrueF

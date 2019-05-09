@@ -36,6 +36,7 @@ verifSus :: Subst -> Bool
 verifSus s = tieneRep [v | (v,t) <- s]
 
 -- Sustitución para terminos.
+-- Necesario para seguir haciendo las descomposiciones en MM-Extendido
 apsubT :: Term -> Subst -> Term
 apsubT t sus = case t of
   V x -> case sus of
