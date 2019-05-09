@@ -83,11 +83,15 @@ unificaLit phi psi = case (phi,psi) of
 
 ------------------------ Añadimos los nuevos métodos ---------------------------
 mmE :: [Lit] -> Subst
-mmE [TrueF] = error "Falta implementar"
-
+mmE s = error "Falta"
+  --concat [unificaLit l1 l2 | l1, l2 <- s]
+  --case [li] of
+  --[t1, t2] -> unificaLit t1 t2
+--  concat [unificaLit r t | r,t <- s] where s = [li]
 
 sust_G :: [Lit] -> Subst -> [Lit]
-sust_G [TrueF] sust = error "Falta implementar"
+sust_G [li] sust = [apsubL li sust]
+
 
 apsubL :: Lit -> Subst -> Lit
 apsubL lit sus = case lit of
